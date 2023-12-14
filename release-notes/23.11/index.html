@@ -15,7 +15,7 @@
 <h1>CheriBSD 23.11 Release Notes</h1>
 <h2>Overview</h2>
 <p>
-Welcome to the Fall 2023 release of the CheriBSD operating system.  As well as a general update of the baseline FreeBSD OS (roughly corresponding to FreeBSD 14.0-RELEASE) from which CheriBSD is derived, we have introduced several new research components which will be of interest to the CHERI and CheriBSD community:
+Welcome to the Fall 2023 (23.11) release of the CheriBSD operating system.  As well as a general update of the baseline FreeBSD OS (roughly corresponding to FreeBSD 14.0-RELEASE) from which CheriBSD is derived, we have introduced several new research components which will be of interest to the CHERI and CheriBSD community:
 </p>
 <ul>
 <li>Support for user level heap temporal memory safety has now been merged and enabled by default. User level allocations via malloc() are now quarantined on free() until all outstanding pointers to the allocation have been revoked, preventing exploitation of use-after-reallocation vulnerabilities. As with all the new features, readers should see the Getting Started Guide for configuration and usage information. The implementation extends the techniques in our paper <em>Cornucopia: Temporal Safety for CHERI Heaps</em> and will be documented in the forthcoming paper <em>Cornucopia Reloaded: Load Barriers for CHERI Heap Temporal Safety</em>. 
