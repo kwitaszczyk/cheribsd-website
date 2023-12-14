@@ -44,30 +44,24 @@ New installations of the latest CheriBSD release have an option to enable the de
 <p>
 If you have already installed the latest version of CheriBSD but did not install the desktop packages you can add them later; log in as root or use sudo to add the following packages to the system:
 </p>
-<p>
-pkg64c install cheri-desktop (provides DRM, Wayland and the general GUI system)
-</p>
-<p>
-pkg64 install cheri-desktop-hybrid-extras (provides Firefox and other applications)
-</p>
+<pre>
+<code>pkg64c install cheri-desktop</code> <b>(provides DRM, Wayland and the general GUI system)</b>
+<code>pkg64 install cheri-desktop-hybrid-extras</code> <b>(provides Firefox and other applications)</b>
+</pre>
 <p>
 Make sure that your user ID is in the video group; if not, use:
 </p>
-<p>
-pw groupmod video -m username
-</p>
+<pre>
+<code>pw groupmod video -m username</code>
+</pre>
 <p>
 Add the following lines to /boot/loader.conf:
 </p>
-<p>
-dtb_load="YES"
-</p>
-<p>
-dtb_type="dtb"
-</p>
-<p>
-dtb_name="/boot/dtb/arm/morello-soc.dtb"
-</p>
+<pre>
+<code>dtb_load="YES"</code>
+<code>dtb_type="dtb"</code>
+<code>dtb_name="/boot/dtb/arm/morello-soc.dtb"</code>
+</pre>
 <p>
 Ensure that a USB keyboard and mouse, as well as an HDMI monitor capable of handling full-HD input (all modern monitors), are connected to the desktop.
 </p>
