@@ -1,0 +1,4 @@
+[submodule "getting-started/23.11"]
+	path = getting-started/23.11
+	url = https://github.com/CTSRD-CHERI/cheribsd-getting-started.git
+	branch = gh-pages
