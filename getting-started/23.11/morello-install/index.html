@@ -1,0 +1,858 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Installing on a Morello board - Getting Started with CheriBSD 23.11</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../cover/index.html">Getting Started with CheriBSD 23.11</a></li><li class="chapter-item expanded "><a href="../introduction/index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../background/index.html"><strong aria-hidden="true">2.</strong> Background</a></li><li class="chapter-item expanded "><a href="../features/index.html"><strong aria-hidden="true">3.</strong> CheriBSD features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/kernel.html"><strong aria-hidden="true">3.1.</strong> Kernel compilation modes</a></li><li class="chapter-item expanded "><a href="../features/processes.html"><strong aria-hidden="true">3.2.</strong> Process environments</a></li><li class="chapter-item expanded "><a href="../features/desktop.html"><strong aria-hidden="true">3.3.</strong> CheriABI desktop environment</a></li><li class="chapter-item expanded "><a href="../features/temporal.html"><strong aria-hidden="true">3.4.</strong> Userlevel heap temporal memory safety</a></li><li class="chapter-item expanded "><a href="../features/c18n.html"><strong aria-hidden="true">3.5.</strong> Userlevel software compartmentalization</a></li><li class="chapter-item expanded "><a href="../features/bhyve.html"><strong aria-hidden="true">3.6.</strong> bhyve hypervisor</a></li></ol></li><li class="chapter-item expanded "><a href="../nonfeatures/index.html"><strong aria-hidden="true">4.</strong> Unsupported FreeBSD features</a></li><li class="chapter-item expanded "><a href="../getting/index.html"><strong aria-hidden="true">5.</strong> Getting CheriBSD</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../downloading/index.html"><strong aria-hidden="true">5.1.</strong> Downloading image files</a></li><li class="chapter-item expanded "><a href="../building/index.html"><strong aria-hidden="true">5.2.</strong> Building image files</a></li></ol></li><li class="chapter-item expanded "><a href="../morello/index.html"><strong aria-hidden="true">6.</strong> CheriBSD on an Arm Morello board</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../morello-console/index.html"><strong aria-hidden="true">6.1.</strong> Accessing the Morello console</a></li><li class="chapter-item expanded "><a href="../morello-firmware/index.html"><strong aria-hidden="true">6.2.</strong> Upgrading the Morello firmware</a></li><li class="chapter-item expanded "><a href="../morello-install/index.html" class="active"><strong aria-hidden="true">6.3.</strong> Installing on a Morello board</a></li><li class="chapter-item expanded "><a href="../morello-issues/index.html"><strong aria-hidden="true">6.4.</strong> Morello known issues</a></li></ol></li><li class="chapter-item expanded "><a href="../packages/index.html"><strong aria-hidden="true">7.</strong> Third-party packages</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../packages/limitations.html"><strong aria-hidden="true">7.1.</strong> Limitations of packages</a></li><li class="chapter-item expanded "><a href="../packages/missing.html"><strong aria-hidden="true">7.2.</strong> Missing packages</a></li><li class="chapter-item expanded "><a href="../packages/upgrading.html"><strong aria-hidden="true">7.3.</strong> Upgrading packages</a></li><li class="chapter-item expanded "><a href="../packages/debugging.html"><strong aria-hidden="true">7.4.</strong> Debugging packages</a></li><li class="chapter-item expanded "><a href="../packages/commands.html"><strong aria-hidden="true">7.5.</strong> Useful commands</a></li></ol></li><li class="chapter-item expanded "><a href="../helloworld/index.html"><strong aria-hidden="true">8.</strong> Compiling &quot;Hello World&quot;</a></li><li class="chapter-item expanded "><a href="../benchmarking/index.html"><strong aria-hidden="true">9.</strong> Benchmarking guidance</a></li><li class="chapter-item expanded "><a href="../support/index.html"><strong aria-hidden="true">10.</strong> Getting help</a></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">11.</strong> Resources</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Getting Started with CheriBSD 23.11</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        <a href="https://github.com/CTSRD-CHERI/cheribsd-getting-started" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#installing-on-a-morello-board" id="installing-on-a-morello-board">Installing on a Morello Board</a></h1>
+<p><em><strong>Please ensure that you have upgraded the Morello board firmware before
+proceeding to CheriBSD installation.</strong></em></p>
+<p>Once you have a disk image, you will either need to write it to a USB stick
+to boot an Arm Morello system, or specify it as an argument to an emulator
+such as QEMU-CHERI or the Arm Morello FVP.</p>
+<h2><a class="header" href="#writing-an-installer-disk-image-to-a-usb-stick" id="writing-an-installer-disk-image-to-a-usb-stick">Writing an installer disk image to a USB stick</a></h2>
+<p>With appropriate substitutions of image filename and target device, the
+following command would write the image to a USB stick for use with a Morello
+board:</p>
+<pre><code>dd if=cheribsd-memstick-arm64-aarch64c-23.11.img of=/dev/DISK bs=1M
+</code></pre>
+<p>It is also possible to write a live image to a USB stick, with appropriate
+filename substitution.</p>
+<h2><a class="header" href="#installing-an-arm-morello-system" id="installing-an-arm-morello-system">Installing an Arm Morello system</a></h2>
+<p>It is possible to use Arm Morello systems both by booting the live image on a
+USB stick, and also by installing to the internal hard disk.
+In this section, we describe the how to perform an installation using the
+memstick image.</p>
+<h3><a class="header" href="#starting-the-boot" id="starting-the-boot">Starting the boot</a></h3>
+<p>Before powering on your Morello board, ensure that the installer USB stick is
+inserted into one of the USB ports on the board.
+Use the power switch to power the board on, which should lead to firmware
+output on the MCC console during a multi-minute initialization and boot cycle.</p>
+<p>Once that has completed, you will see Morello firmware output on the Morello
+console.
+When this message is presented, press Escape to enter the UEFI boot menu:</p>
+<pre><code>Press ESCAPE for boot options .......
+</code></pre>
+<p>At the UEFI menu, select Boot Manager using the cursor keys, and press
+Enter:</p>
+<pre><code>   Select Language            &lt;Standard English&gt;         This selection will
+                                                         take you to the
+ &gt; Device Manager                                        Device Manager
+ &gt; Boot Manager
+ &gt; Boot Maintenance Manager
+
+   Continue
+   Reset
+
+
+
+
+
+
+
+  ^v=Move Highlight       &lt;Enter&gt;=Select Entry
+</code></pre>
+<p>Select your USB stick from the Boot Manager menu using the cursor keys, and
+press enter.
+In the example below, it is the SanDisk Ultra USB 3.0 device:</p>
+<pre><code>/------------------------------------------------------------------------------\
+|                                Boot Manager                                  |
+\------------------------------------------------------------------------------/
+
+                                                         Device Path :
+   Boot Manager Menu                                     PcieRoot(0x0)/Pci(0x0,
+                                                         0x0)/Pci(0x0,0x0)/Pci(
+   UEFI Shell                                            0x14,0x0)/Pci(0x0,0x0)
+   UEFI Misc Device                                      /USB(0x5,0x0)
+   UEFI WDC WDS240G2G0A-00JH30 2143B2455605
+   UEFI PXEv4 (MAC:0002F7009856)
+   UEFI HTTPv4 (MAC:0002F7009856)
+   UEFI HTTPv6 (MAC:0002F7009856)
+   UEFI PXEv6 (MAC:0002F7009856)
+   UEFI SanDisk Ultra USB 3.0
+   0101cfbb32adfd6c145cd38e7d6164cd167456963c3a71b9f157
+   e574567b43d96c6000000000000000000000e49dde42009f1a00
+   955581079e275d95
+   UEFI Non-Block Boot Device
+                                                       v
+/------------------------------------------------------------------------------\
+|                                                                              |
+| ^v=Move Highlight       &lt;Enter&gt;=Select Entry      Esc=Exit                   |
+\------------------------------------------------------------------------------/
+</code></pre>
+<p>This will be followed by the CheriBSD boot loader and kernel output.
+You can press Enter to proceed, or wait for the countdown timer to finish:</p>
+<pre><code>    _____ _               _ ____   _____ _____
+   / ____| |             (_)  _ \ / ____|  __ \
+  | |    | |__   ___ _ __ _| |_) | (___ | |  | |
+  | |    | '_ \ / _ \ '__| |  _ &lt; \___ \| |  | |
+  | |____| | | |  __/ |  | | |_) |____) | |__| |
+   \_____|_| |_|\___|_|  |_|____/|_____/|_____/
+                                                 ```                        `
+                                                s` `.....---.......--.```   -/
+ /---------- Welcome to CheriBSD ----------\    +o   .--`         /y:`      +.
+ |                                         |     yo`:.            :o      `+-
+ |  1. Boot Installer [Enter]              |      y/               -/`   -o/
+ |  2. Boot Single user                    |     .-                  ::/sy+:.
+ |  3. Escape to loader prompt             |     /                     `--  /
+ |  4. Reboot                              |    `:                          :`
+ |  5. Cons: Serial                        |    `:                          :`
+ |                                         |     /                          /
+ |  Options:                               |     .-                        -.
+ |  6. Kernel: default/kernel (1 of 1)     |      --                      -.
+ |  7. Boot Options                        |       `:`                  `:`
+ |                                         |         .--             `--.
+ |                                         |            .---.....----.
+ \-----------------------------------------/
+   Autoboot in 10 seconds. [Space] to pause
+</code></pre>
+<p>Note that seperate instances of the installer will run on both the video and
+serial consoles.  Care should be taken to ensure that only one is used as
+no mechanism is implemented to prevent one from destroying the other's work.</p>
+<p>On the serial console, you will eventually be prompted to select a terminal
+emulation type:</p>
+<pre><code>Welcome to FreeBSD!
+
+Please choose the appropriate terminal type for your system.
+Common console types are:
+   ansi     Standard ANSI terminal
+   vt100    VT100 or compatible terminal
+   xterm    xterm terminal emulator (or compatible)
+
+Console type [xterm]:
+</code></pre>
+<p>In most cases, simply hitting Enter will be the right thing to do.
+This will enter <code>bsdinstall</code>, the interactive FreeBSD installer.</p>
+<h3><a class="header" href="#bsdinstall" id="bsdinstall">bsdinstall</a></h3>
+<p><code>bsdinstall</code> uses the <code>libdialog</code> text interface library.
+<strong>Be aware that you will sometimes need to use the space bar, and not enter
+key, to select menu options, which many users find confusing.</strong></p>
+<p>Select <strong>Install</strong> at the first menu by hitting Enter:</p>
+<pre><code>                     ┌────────────Welcome──────────────┐
+                     │ Welcome to FreeBSD! Would you   │
+                     │ like to begin an installation   │
+                     │ or use the live CD?             │
+                     ├─────────────────────────────────┤
+                     │ &lt;Install&gt; &lt; Shell &gt; &lt;Live CD&gt;   │
+                     └─────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#keymap-selection" id="keymap-selection">Keymap selection</a></h4>
+<p>If you intend only to use the serial console, and not video console, select
+the default keymap by hitting Enter at the next menu; otherwise, use the
+cursor keys and space bar to select a country-specific keyboard layout:</p>
+<pre><code>     ┌───────────────────────Keymap Selection──────────────────────────┐
+     │ The system console driver for FreeBSD defaults to standard &quot;US&quot; │
+     │ keyboard map. Other keymaps can be chosen below.                │
+     │ ┌─────────────────────────────────────────────────────────────┐ │
+     │ │&gt;&gt;&gt; Continue with default keymap                             │ │
+     │ │-&gt;- Test default keymap                                      │ │
+     │ │( ) Armenian phonetic layout                                 │ │
+     │ │( ) Belarusian                                               │ │
+     │ │( ) Belgian                                                  │ │
+     │ │( ) Belgian (accent keys)                                    │ │
+     │ │( ) Brazilian (accent keys)                                  │ │
+     │ │( ) Brazilian (without accent keys)                          │ │
+     │ │( ) Bulgarian (BDS)                                          │ │
+     │ │( ) Bulgarian (Phonetic)                                     │ │
+     │ │( ) Canadian Bilingual                                       │ │
+     │ └────↓(+)─────────────────────────────────────────────12%─────┘ │
+     ├─────────────────────────────────────────────────────────────────┤
+     │                   &lt;Select&gt;          &lt;Cancel&gt;                    │
+     └──────────────────[Press arrows, TAB or ENTER]───────────────────┘
+</code></pre>
+<h4><a class="header" href="#hostname" id="hostname">Hostname</a></h4>
+<p>Press Enter to accept the default hostname, or replace it:</p>
+<pre><code>           ┌───────────────────Set Hostname──────────────────────┐
+           │ Please choose a hostname for this machine.          │
+           │                                                     │
+           │ If you are running on a managed network, please ask │
+           │ your network administrator for an appropriate name. │
+           │ ┌─────────────────────────────────────────────────┐ │
+           │ │cheribsd                                         │ │
+           │ └─────────────────────────────────────────────────┘ │
+           ├─────────────────────────────────────────────────────┤
+           │                     &lt;  OK  &gt;                        │
+           └─────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#partitioning-automatic-or-manual" id="partitioning-automatic-or-manual">Partitioning (automatic or manual)</a></h4>
+<p>This tutorial assumes that you are performing a fresh install, or a complete
+reinstall of your Morello system, with the intention of booting only CheriBSD.
+It also assumes that you will be using the UFS file system.
+If these assumpsions are not true, read the FreeBSD documentation for more
+information on partitioning disks before proceeding.</p>
+<p>Press Enter to select an automated UFS install:</p>
+<pre><code>          ┌─────────────────────Partitioning───────────────────────┐
+          │ How would you like to partition your disk?             │
+          │ ┌────────────────────────────────────────────────────┐ │
+          │ │   Auto (UFS)  Guided UFS Disk Setup                │ │
+          │ │   Auto (ZFS)  EXPERIMENTAL Guided Root-on-ZFS      │ │
+          │ │   Manual      Manual Disk Setup (experts)          │ │
+          │ │   Shell       Open a shell and partition by hand   │ │
+          │ │                                                    │ │
+          │ │                                                    │ │
+          │ └────────────────────────────────────────────────────┘ │
+          ├────────────────────────────────────────────────────────┤
+          │               &lt;  OK  &gt;        &lt;Cancel&gt;                 │
+          └────────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#partition-entire-disk" id="partition-entire-disk">Partition (entire disk)</a></h4>
+<p>Select Entire Disk and press Enter:</p>
+<pre><code>                 ┌───────────────Partition──────────────────┐
+                 │ Would you like to use this entire disk   │
+                 │ (ada0) for FreeBSD or partition it to    │
+                 │ share it with other operating systems?   │
+                 │ Using the entire disk will erase any     │
+                 │ data currently stored there.             │
+                 ├──────────────────────────────────────────┤
+                 │     &lt;Entire Disk&gt;   &lt; Partition &gt;        │
+                 └──────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#partition-entire-disk---confirmation" id="partition-entire-disk---confirmation">Partition (entire disk - confirmation)</a></h4>
+<p>Press Enter to confirm:</p>
+<pre><code>                 ┌───────────────Partition──────────────────┐
+                 │ Would┌──────Confirmation─────────┐disk   │
+                 │ (ada0│ This will erase the disk. │  o    │
+                 │ share│ Are you sure you want to  │  s?   │
+                 │ Using│ proceed?                  │       │
+                 │ data ├───────────────────────────┤       │
+                 ├──────│     &lt; Yes &gt;   &lt; No  &gt;     │  ─────┤
+                 │     &lt;└───────────────────────────┘       │
+                 └────────                             ─────┘
+</code></pre>
+<h4><a class="header" href="#partition-editor" id="partition-editor">Partition Editor</a></h4>
+<p>Review the proposed partition scheme, select Finish, and then press Enter to
+proceed:</p>
+<pre><code>           ┌──────────────────Partition Editor────────────────────┐
+           │ Please review the disk setup. When complete, press   │
+           │ the Finish button.                                   │
+           │┌────────────────────────────────────────────────────┐│
+           ││ada0            224 GB  GPT                         ││
+           ││  ada0p1        260 MB  efi            /boot/efi    ││
+           ││  ada0p2        220 GB  freebsd-ufs    /            ││
+           ││  ada0p3        3.6 GB  freebsd-swap   none         ││
+           ││da0             57 GB   GPT                         ││
+           ││  da0p1         33 MB   efi                         ││
+           ││  da0p2         2.4 GB  freebsd-ufs                 ││
+           ││                                                    ││
+           │└────────────────────────────────────────────────────┘│
+           ├──────────────────────────────────────────────────────┤
+           │&lt;Create&gt; &lt;Delete&gt; &lt;Modify&gt; &lt;Revert&gt; &lt; Auto &gt; &lt;Finish&gt; │
+           └──────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#partition-editor---confirmation" id="partition-editor---confirmation">Partition editor - confirmation</a></h4>
+<p>Select Commit and press Enter to continue with writing out a new partition
+table:</p>
+<pre><code>            ┌─────────────────┤Partition Editor├──────────────────┐
+            │ Please review the disk setup. When complete, press  │
+            │ the Finish button.                                  │
+            │                                                     │
+            │                                                     │
+            │ ┌─────────────────────────────────────────────────┐ │
+            │ │┌────────────────┤Confirmation├─────────────────┐│ │
+            │ ││ Your changes will now be written to disk. If  │  │
+            │ ││ you have chosen to overwrite existing data,   │  │
+            │ ││ it will be PERMANENTLY ERASED. Are you sure   │  │
+            │ ││ you want to commit your changes?              │  │
+            │ │├───────────────────────────────────────────────┤  │
+            │ ││[   Commit    ] [Revert &amp; Exit] [    Back     ]│  │
+            │ │└───────────────────────────────────────────────┘  │
+            │ │                                                   │
+            │ │                                                 │ │
+            │ └─────────────────────────────────────────────────┘ │
+            ├─────────────────────────────────────────────────────┤
+            │[Create] [Delete] [Modify] [Revert] [ Auto ] [Finish]│
+            └─────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#the-installation-proceeds" id="the-installation-proceeds">The installation proceeds</a></h4>
+<p>The installer will now proceed to check distribution files and unpack them
+onto the disk.
+Unless something goes wrong, no user interaction is required.
+Typical output from the installation process will look like this:</p>
+<pre><code> FreeBSD Installer
+ ──────────────────────────────────────────────────────────────────────────────
+┌───────────────────────────┤Checksum Verification├──────────────────────────┐
+│ base.txz                                                   [   Passed    ] │
+│ kernel.txz                                                 [   Passed    ] │
+│ base-dbg.txz                                               [   Passed    ] │
+│ kernel-dbg.txz                                             [   Passed    ] │
+│ kernel.GENERIC-MORELLO-NOCAPREVOKE-NODEBUG-dbg.txz         [   Passed    ] │
+│ kernel.GENERIC-MORELLO-NOCAPREVOKE-NODEBUG.txz             [   Passed    ] │
+│ kernel.GENERIC-MORELLO-NOCAPREVOKE-dbg.txz                 [ In Progress ] │
+│ kernel.GENERIC-MORELLO-NOCAPREVOKE.txz                     [   Pending   ] │
+│ kernel.GENERIC-MORELLO-NODEBUG-dbg.txz                     [   Pending   ] │
+│ kernel.GENERIC-MORELLO-NODEBUG.txz                         [   Pending   ] │
+│ kernel.GENERIC-MORELLO-PURECAP-NOCAPREVOKE-NODEBUG-dbg...  [   Pending   ] │
+│ kernel.GENERIC-MORELLO-PURECAP-NOCAPREVOKE-NODEBUG.txz     [   Pending   ] │
+│ ...                                                                        │
+│                                                                            │
+│ Verifying checksums of selected distributions.                             │
+│                                                                            │
+│  ┌─Overall Progress─────────────────────────────────────────────────────┐  │
+│  │                                  24%                                 │  │
+│  └──────────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#updating-the-efi-configuration-table" id="updating-the-efi-configuration-table">Updating the EFI configuration table</a></h4>
+<p>If you are reinstalling a Morello box with an existing OS install, you may be
+prompted to update the boot configuration.
+Press Enter to proceed:</p>
+<pre><code>                      ┌─────Boot Configuration────────┐
+                      │ There are multiple &quot;FreeBSD&quot;  │
+                      │ EFI boot entries. Would you   │
+                      │ like to remove them all and   │
+                      │ add a new one?                │
+                      ├───────────────────────────────┤
+                      │     &lt; Yes &gt;   &lt; No  &gt;         │
+                      └───────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#setting-a-root-password" id="setting-a-root-password">Setting a root password</a></h4>
+<p>Enter a new root password and press Enter.
+Then confirm it by typing the same password again and pressing Enter.</p>
+<pre><code>Please select a password for the system management account (root):
+Typed characters will not be visible.
+Changing local password for root
+New Password:
+</code></pre>
+<h4><a class="header" href="#network-configuration" id="network-configuration">Network configuration</a></h4>
+<p>If desired, configure Ethernet networking by pressing Enter.</p>
+<pre><code>      ┌─────────────────────┤Network Configuration├─────────────────────┐
+      │ Please select a network interface to configure:                 │
+      │ ┌─────────────────────────────────────────────────────────────┐ │
+      │ │re0 RealTek 8168/8111 B/C/CP/D/DP/E/F/G PCIe Gigabit Ethernet│ │
+      │ └─────────────────────────────────────────────────────────────┘ │
+      ├─────────────────────────────────────────────────────────────────┤
+      │                      [  OK  ]     [Cancel]                      │
+      └─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#network-configuration---enabling-ipv4" id="network-configuration---enabling-ipv4">Network configuration - enabling IPv4</a></h4>
+<p>If desired, enable IPv4 on the Ethernet interface by selecting Yes and
+pressing Enter:</p>
+<pre><code>                        ┌──Network Configuration────┐
+                        │ Would you like to         │
+                        │ configure IPv4 for this   │
+                        │ interface?                │
+                        ├───────────────────────────┤
+                        │     &lt; Yes &gt;   &lt; No  &gt;     │
+                        └───────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#network-configuration---dhcp-for-ipv4" id="network-configuration---dhcp-for-ipv4">Network configuration - DHCP for IPv4</a></h4>
+<p>If you will be using DHCP, select Yes and press Enter.
+Otherwise select No and press Enter to perform a manual IPv4 configuration.</p>
+<pre><code>                       ┌────┤Network Configuration├───┐
+                       │ Would you like to use DHCP   │
+                       │ to configure this interface? │
+                       ├──────────────────────────────┤
+                       │     [ Yes  ]    [  No  ]     │
+                       └──────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#network-configuration---enabling-ipv6" id="network-configuration---enabling-ipv6">Network configuration - enabling IPv6</a></h4>
+<p>If desired, enable IPv6 on the Ethernet interface by selecting Yes and
+pressing Enter:</p>
+<pre><code>                        ┌───┤Network Configuration├───┐
+                        │ Would you like to configure │
+                        │ IPv6 for this interface?    │
+                        ├─────────────────────────────┤
+                        │    [ Yes  ]    [  No  ]     │
+                        └─────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#network-configuration---slaac-for-ipv6" id="network-configuration---slaac-for-ipv6">Network configuration - SLAAC for IPv6</a></h4>
+<p>Press Enter to use stateless address autoconfiguration for IPv6:</p>
+<pre><code>                      ┌─────┤Network Configuration├─────┐
+                      │ Would you like to try stateless │
+                      │ address autoconfiguration       │
+                      │ (SLAAC)?                        │
+                      ├─────────────────────────────────┤
+                      │      [ Yes  ]     [  No  ]      │
+                      └─────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#network-configuration---resolver-configuration" id="network-configuration---resolver-configuration">Network configuration - resolver configuration</a></h4>
+<p>Enter DNS resolution configuration information, or press Enter to confirm
+autoconfigured DNS configuration:</p>
+<pre><code>   ┌───────────────────────Network Configuration──────────────────────────┐
+   │ Resolver Configuration                                               │
+   │ ┌──────────────────────────────────────────────────────────────────┐ │
+   │ │Search                                                            │ │
+   │ │IPv6 DNS #1                                                       │ │
+   │ │IPv6 DNS #2                                                       │ │
+   │ │IPv4 DNS #1    192.168.4.1                                        │ │
+   │ │IPv4 DNS #2                                                       │ │
+   │ └──────────────────────────────────────────────────────────────────┘ │
+   ├──────────────────────────────────────────────────────────────────────┤
+   │                     &lt;  OK  &gt;           &lt;Cancel&gt;                      │
+   └──────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#local-or-utc-clock" id="local-or-utc-clock">Local or UTC clock</a></h4>
+<p>Press Enter to select a system clock on UTC:</p>
+<pre><code>   ┌───────────┤Select local or UTC (Greenwich Mean Time) clock├───────────┐
+   │ Is this machine's CMOS clock set to UTC?  If it is set to local time, │
+   │ or you don't know, please choose NO here!                             │
+   │                                                                       │
+   ├───────────────────────────────────────────────────────────────────────┤
+   │                          [ Yes  ]   [  No  ]                          │
+   └───────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#timezone-selection" id="timezone-selection">Timezone selection</a></h4>
+<p>Press Enter to select UTC as your timezone; otherwise, select your continent
+and press Enter.</p>
+<pre><code>                      ┌──────┤Time Zone Selector├───────┐
+                      │ Select a region                 │
+                      │ ┌─────────────────────────────┐ │
+                      │ │0  UTC                       │ │
+                      │ │1  Africa                    │ │
+                      │ │2  America -- North and South│ │
+                      │ │3  Antarctica                │ │
+                      │ │4  Arctic Ocean              │ │
+                      │ │5  Asia                      │ │
+                      │ │6  Atlantic Ocean            │ │
+                      │ │7  Australia                 │ │
+                      │ │8  Europe                    │ │
+                      │ │9  Indian Ocean              │ │
+                      │ │10 Pacific Ocean             │ │
+                      │ └─────────────────────────────┘ │
+                      ├─────────────────────────────────┤
+                      │      [  OK  ]     [Cancel]      │
+                      └─────────────────────────────────┘
+</code></pre>
+<p>If you have not selected UTC, select your country and press Enter:</p>
+<pre><code>        ┌────────────────────┤Countries in Europe├────────────────────┐
+        │ Select a country or region                                  │
+        │ ┌─^^^─────────────────────────────────────────────────────┐ │
+        │ │ 35 Poland                                               │ │
+        │ │ 36 Portugal                                             │ │
+        │ │ 37 Romania                                              │ │
+        │ │ 38 Russian Federation                                   │ │
+        │ │ 39 San Marino                                           │ │
+        │ │ 40 Serbia                                               │ │
+        │ │ 41 Slovakia                                             │ │
+        │ │ 42 Slovenia                                             │ │
+        │ │ 43 Spain                                                │ │
+        │ │ 44 Svalbard and Jan Mayen                               │ │
+        │ │ 45 Sweden                                               │ │
+        │ │ 46 Switzerland                                          │ │
+        │ │ 47 Turkey                                               │ │
+        │ │ 48 Ukraine                                              │ │
+        │ │ 49 United Kingdom of Great Britain and Northern Ireland │ │
+        │ │ 50 Åland Islands                                        │ │
+        │ └────────────────────────────────────────────────100%─────┘ │
+        ├─────────────────────────────────────────────────────────────┤
+        │                     [  OK  ]   [Cancel]                     │
+        └─────────────────────────────────────────────────────────────┘
+</code></pre>
+<p>Confirm your choice by selecting Yes and pressing Enter:</p>
+<pre><code>   ┌────────────────────────────┤Confirmation├────────────────────────────┐
+   │ Does the abbreviation `UTC' look reasonable?                         │
+   ├──────────────────────────────────────────────────────────────────────┤
+   │                         [ Yes  ]     [  No  ]                        │
+   └──────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#setting-the-date-and-time" id="setting-the-date-and-time">Setting the date and time</a></h4>
+<p>As desired, set the date, or select Skip and press Enter if you plan
+to use network time synchronization:</p>
+<pre><code>                   ┌─────────────┤Time &amp; Date├────────────┐
+                   │        ┌────┐ ┌─────────┐ ┌──┐       │
+                   │        │2023│/│ December│/│15│       │
+                   │        └────┘ └─────────┘ └──┘       │
+                   ├──────────────────────────────────────┤
+                   │       [Set Date]     [  Skip  ]      │
+                   └──────────────────────────────────────┘
+</code></pre>
+<p>And, likewise, the time:</p>
+<pre><code>                   ┌─────────────┤Time &amp; Date├────────────┐
+                   │            ┌──┐ ┌──┐ ┌──┐            │
+                   │            │11│:│23│:│20│            │
+                   │            └──┘ └──┘ └──┘            │
+                   ├──────────────────────────────────────┤
+                   │       [Set Time]     [  Skip  ]      │
+                   └──────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#system-configuration" id="system-configuration">System configuration</a></h4>
+<p>As desired, enable any further services (e.g., <code>ntpd</code> and <code>ntpdate</code>) by
+selecting them and hitting Space:</p>
+<pre><code>┌───────────────────────────┤System Configuration├───────────────────────────┐
+│ Choose the services you would like to be started at boot:                  │
+│ ┌────────────────────────────────────────────────────────────────────────┐ │
+│ │[ ] local_unbound      Local caching validating resolver                │ │
+│ │[X] sshd               Secure shell daemon                              │ │
+│ │[ ] moused             PS/2 mouse pointer on console                    │ │
+│ │[ ] ntpd               Synchronize system and network time              │ │
+│ │[ ] ntpd_sync_on_start Sync time on ntpd startup, even if offset is high│ │
+│ │[ ] powerd             Adjust CPU frequency dynamically if supported    │ │
+│ │[X] dumpdev            Enable kernel crash dumps to /var/crash          │ │
+│ │[ ] debugger_on_panic  Run debugger on kernel panic                     │ │
+│ └────────────────────────────────────────────────────────────────────────┘ │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                  [  OK  ]                                  │
+└────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<p>Then press Enter to continue.</p>
+<h4><a class="header" href="#add-user-accounts" id="add-user-accounts">Add user accounts</a></h4>
+<p>If you plan to install the desktop environment in the next step, it is
+useful to create user accounts now.
+If desired, select Yes and press Enter to add non-root accounts.
+Otherwise, select No and press Enter</p>
+<pre><code>                        ┌────Add User Accounts──────┐
+                        │ Would you like to add     │
+                        │ users to the installed    │
+                        │ system now?               │
+                        ├───────────────────────────┤
+                        │     &lt; Yes &gt;   &lt; No  &gt;     │
+                        └───────────────────────────┘
+</code></pre>
+<p>If you add non-root users, we recommend adding them to the <code>wheel</code>,
+<code>operator</code>, and <code>video</code> groups to allow them to manage the system as well as
+use the desktop environment.</p>
+<h4><a class="header" href="#cheri-desktop-environment" id="cheri-desktop-environment">CHERI Desktop environment</a></h4>
+<p>If you wish to configure your CheriBSD system with a KDE-based desktop
+environment you can do so now.  <strong>NOTE: You must have previously
+configured the network and be able to reach pkg.CheriBSD.org.</strong></p>
+<pre><code>                      ┌─────────┤CHERI Desktop├────────┐
+                      │ Would you like to install the  │
+                      │ CHERI desktop environment      │
+                      │ (requires network)?            │
+                      ├────────────────────────────────┤
+                      │      [ Yes  ]     [  No  ]     │
+                      └────────────────────────────────┘
+</code></pre>
+<p>Select Yes to install (<strong>NOTE: this may take 20-50 minutes depending on
+network conditions</strong>).</p>
+<h4><a class="header" href="#virtualization-support" id="virtualization-support">Virtualization support</a></h4>
+<p>If you wish to configure your CheriBSD system to support <code>bhyve</code>-based,
+CHERI-enabled virtual machines, press Enter:</p>
+<pre><code>                      ┌───────┤CHERI VM Support├────────┐
+                      │ Would you like to install CHERI │
+                      │ virtual machine support         │
+                      │ (requires network)?             │
+                      ├─────────────────────────────────┤
+                      │      [ Yes  ]     [  No  ]      │
+                      └─────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#final-configuration" id="final-configuration">Final configuration</a></h4>
+<p>If there are further configuration settings to change, select an appropriate
+option from the menu and press Space.
+Otherwise, press Enter to complete the installation:</p>
+<pre><code>┌───────────────────────────Final Configuration──────────────────────────────┐
+│ Setup of your FreeBSD system is nearly complete. You can now modify your   │
+│ configuration choices. After this screen, you will have an opportunity to  │
+│ make more complex changes using a shell.                                   │
+│ ┌────────────────────────────────────────────────────────────────────────┐ │
+│ │Exit              Apply configuration and exit installer                │ │
+│ │Add User          Add a user to the system                              │ │
+│ │Root Password     Change root password                                  │ │
+│ │Hostname          Set system hostname                                   │ │
+│ │Network           Networking configuration                              │ │
+│ │Services          Set daemons to run on startup                         │ │
+│ │System Hardening  Set security options                                  │ │
+│ │Time Zone         Set system timezone                                   │ │
+│ │Handbook          Install FreeBSD Handbook (requires network)           │ │
+│ │CHERI Desktop     Install the CHERI desktop environment (requires networ│ │
+│ │CHERI VM Support  Install CHERI virtual machine support (requires networ│ │
+│ │                                                                        │ │
+│ │                                                                        │ │
+│ │                                                                        │ │
+│ └────────────────────────────────────────────────────────────────────────┘ │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                 &lt;  OK  &gt;                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h4><a class="header" href="#manual-configuration" id="manual-configuration">Manual configuration</a></h4>
+<p>If desired, select Yes and press Enter to drop to a shell before reboot.
+Otherwise, select No and press Enter.</p>
+<pre><code>                   ┌───────Manual Configuration──────────┐
+                   │ The installation is now finished.   │
+                   │ Before exiting the installer, would │
+                   │ you like to open a shell in the new │
+                   │ system to make any final manual     │
+                   │ modifications?                      │
+                   ├─────────────────────────────────────┤
+                   │         &lt; Yes &gt;     &lt; No  &gt;         │
+                   └─────────────────────────────────────┘
+</code></pre>
+<h3><a class="header" href="#complete" id="complete">Complete</a></h3>
+<p>Select Reboot and press Enter:</p>
+<pre><code>                     ┌────────────┤Complete├─────────────┐
+                     │ Installation of FreeBSD complete! │
+                     │ Would you like to reboot into the │
+                     │ installed system now?             │
+                     ├───────────────────────────────────┤
+                     │ [ Reboot ] [Shutdown] [Live CD ]  │
+                     └───────────────────────────────────┘
+</code></pre>
+<h3><a class="header" href="#rebooting-after-installation" id="rebooting-after-installation">Rebooting after installation</a></h3>
+<p>Remove the USB stick to prevent the installer from running after a system
+reboot.
+If you have issues with reliabity rebooting your Morello box, confirm that you
+are using a recent Morello firmware revision due to <a href="../morello-issues/">a known firmware
+bug</a> in earlier versions that made OS-triggered reboot
+unreliable.</p>
+<h3><a class="header" href="#logging-in" id="logging-in">Logging in</a></h3>
+<p>Log in using the username <code>root</code> and the password you entered during the
+installation process:</p>
+<pre><code>...
+Performing sanity check on sshd configuration.
+Starting sshd.
+Starting cron.
+Starting background file system checks in 60 seconds.
+Starting sddm.
+
+Fri Dec 15 11:32:45 UTC
+CheriBSD/arm64 (cheribsd) (ttyu0)
+
+login: root
+Password:
+Dec 15 11:37:01 cheribsd login[1277]: ROOT LOGIN (root) ON ttyu0
+FreeBSD 14.0-CURRENT aarch64c 1400094 (GENERIC-MORELLO) #0 releng/23.11-3b754ceed4ae: Wed Dec 13 08:54:18 UTC 2023
+
+Welcome to CheriBSD!
+
+CheriBSD extends FreeBSD to implement memory protection and software
+compartmentalization features enabled by CHERI-extended CPUs.
+
+The CheriBSD front page:
+  https://www.cheribsd.org/
+
+We provide support via a mailing list:
+  https://www.cl.cam.ac.uk/research/security/ctsrd/cheri/cheri-lists.html
+
+And also via the CHERI-CPU Slack:
+  https://www.cl.cam.ac.uk/research/security/ctsrd/cheri/cheri-slack.html
+
+CheriBSD source may be found at:
+  https://github.com/CTSRD-CHERI/cheribsd/
+
+Find out more about about CHERI at https://cheri-cpu.org/
+
+WARNING: INVARIANTS kernel option defined, expect reduced performance
+WARNING: WITNESS kernel option defined, expect reduced performance
+WARNING: capability revocation enabled by default, this may affect performance
+root@cheribsd:~ #
+</code></pre>
+<p>You can now add further users, install SSH keys for remote access, install
+packages, and so on.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../morello-firmware/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../morello-issues/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../morello-firmware/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../morello-issues/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
