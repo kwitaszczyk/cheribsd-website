@@ -20,13 +20,8 @@ jobs:
 
       - name: Checkout source
         uses: actions/checkout@v2
-
-      - name: Checkout cheribsd-getting-started/gh-pages
-        uses: actions/checkout@v2
         with:
-          repository: CTSRD-CHERI/cheribsd-getting-started
-          ref: gh-pages
-          path: getting-started/23.11/
+          submodules: true
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
